@@ -37,16 +37,22 @@ public class TicketServices implements ITicketServices {
         return _ticketRepository.save(ticket);
     }
 
-    @Override
     public ticket updateTicket(ticket ticket) {
         Optional<ticket> rowInDB = _ticketRepository.findById(ticket.getIdTicket());
         if (rowInDB.isPresent()) {
             ticket ticketToUpdate = rowInDB.get();
-            ticketToUpdate.setCorreoReceptor(ticket.getCorreoReceptor());
+            // Actualiza todos los campos necesarios
+            ticketToUpdate.setFechaGeneracion(ticket.getFechaGeneracion());
+            ticketToUpdate.setAsunto(ticket.getAsunto());
+            ticketToUpdate.setEquipo(ticket.getEquipo());
+            ticketToUpdate.setTipoConsulta(ticket.getTipoConsulta());
             ticketToUpdate.setFechaAsignacion(ticket.getFechaAsignacion());
-            ticketToUpdate.setFechaCierre(ticket.getFechaCierre());
-            ticketToUpdate.setRespuestaTicket(ticket.getRespuestaTicket());
+            ticketToUpdate.setCorreoEmisor(ticket.getCorreoEmisor());
+            ticketToUpdate.setCorreoReceptor(ticket.getCorreoReceptor());
             ticketToUpdate.setIdEstado(ticket.getIdEstado());
+            ticketToUpdate.setFechaCierre(ticket.getFechaCierre());
+            ticketToUpdate.setCuerpoTicket(ticket.getCuerpoTicket());
+            ticketToUpdate.setRespuestaTicket(ticket.getRespuestaTicket());
             return _ticketRepository.save(ticketToUpdate);
         } else {
             return new ticket();
